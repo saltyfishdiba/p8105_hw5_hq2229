@@ -1,6 +1,6 @@
 ---
 title: "P8105 Homework 5"
-output: html_document
+output: github_document
 date: "2025-11-06 Hantang Qin"
 ---
 
@@ -199,7 +199,7 @@ homicide_raw =
 homicide_raw
 ```
 
-This dataset contains `r length(colnames(homicide_raw))` variables and `r length(homicide_raw$uid)` observations from `r length(unique(homicide_raw$state))` states. There are `r length(homicide_raw$victim_race)` recorded victim race entries. Key variables include victim demographics such as age, race, sex, last name, and case disposition.
+Dataset contains `r length(colnames(homicide_raw))` variables and `r length(homicide_raw$uid)` observations from `r length(unique(homicide_raw$state))` states. There are `r length(homicide_raw$victim_race)` recorded victim race entries. Key variables include victim demographics  like:  age, race, sex, last name, and case disposition.
 
 
 
