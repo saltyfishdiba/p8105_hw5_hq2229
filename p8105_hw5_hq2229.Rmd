@@ -17,6 +17,17 @@ library(tidyverse)
 library(broom)
 library(purrr)
 library(dplyr)
+
+
+library(ggplot2)
+set.seed(0416)
+knitr::opts_chunk$set(
+  fig.path   = "plots_hw5/",   
+  fig.width  = 15, fig.height = 8,
+  dpi        = 320,
+  fig.retina = 2,            
+  dev        = "png"       
+)
 ```
 
 
