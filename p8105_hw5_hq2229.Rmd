@@ -166,7 +166,6 @@ est_results =
 
 est_results  
 
-# make the plot
 Averageestimateplot2 =
   est_results %>%
   pivot_longer(
@@ -177,8 +176,16 @@ Averageestimateplot2 =
   ggplot(aes(x = mu, y = mu_esti, colour = type)) +
   geom_line() +
   geom_point() +
-  scale_x_continuous(breaks = seq(0, 6, by = 1)) +    
+  scale_x_continuous(breaks = seq(0, 6, by = 1)) +
   scale_y_continuous(breaks = seq(0, 6, by = 1)) +
+  scale_color_manual(
+    values = c(
+      "mu_hat"          = "#4DBBD5", 
+      "rejected_mu_hat" = "#E60B35"
+    ),
+    name   = "type",
+    labels = c("mu_hat", "rejected_mu_hat")
+  ) +
   labs(
     title = "Average estimate vs True Mean",
     x = "True Mean",
@@ -192,10 +199,10 @@ Averageestimateplot2
 
 ```
 
-
-The sample average of \hat{\mu} over all simulated tests is approximately equal to the true value \mu, because \hat{\mu} is an unbiased estimator. Between the two conditions, this overall sample mean is therefore the most accurate predictor. In contrast, when we take the sample average of \hat{\mu} only across tests for which the null hypothesis is rejected, this conditional mean tends to be larger than the true \mu, since small estimates are unlikely to lead to rejection and are effectively removed. As \mu increases and the power of the test grows, it becomes harder to accept the null hypothesis, fewer small values are filtered out, and the sample average of \hat{\mu} given rejection moves closer to the true value \mu, which is consistent with the pattern shown in the plot.`
-
-
+---
+The overall sample mean of μ̂ across all tests is approximately equal to the true value μ, because μ̂ is an unbiased estimator. Between the two summaries we consider, this unconditional sample mean should therefore be the most accurate prediction of μ.  In contrast, when we take the sample average of μ̂ only over tests for which the null hypothesis is rejected, 
+this conditional mean tends to be larger than the true μ, since small estimates are unlikely to lead to rejection and are effectively excluded.  As the true value μ increases, the power of the test becomes larger, so it is harder to accept the null hypothesis and fewer small μ̂ values are filtered out.  As a result, the sample average of μ̂ given rejection moves closer to the true μ, 
+which matches the behavior shown in the plot.  
 
 ---
 
