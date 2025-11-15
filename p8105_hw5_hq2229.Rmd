@@ -81,7 +81,7 @@ birthday_results %>%
 
 When the group size get to about 23 people, the probability that at least two share a birthday is already around 50% and continues to increase as the group gets larger. Once the group size is above about 45 people, that probability is very high and is closer to 1.
 
----
+
 
 # Problem 2
 
@@ -121,7 +121,6 @@ glimpse(sim_results)
 
 ```
 
-## Power vs true μ
 
 ```{r p2-power}
 power_results =
@@ -133,7 +132,7 @@ power_results =
   )
 
 power_results %>%
-  filter(mu > 0) %>%                 # drop mu = 0
+
   ggplot(aes(x = mu, y = power)) +
   geom_line() +
   geom_point() +
@@ -156,7 +155,7 @@ When the true effect is larger, it becomes easier to detect, meaning that a larg
 ```{r p2-bias}
 est_results =
   sim_results %>%
-  filter(mu > 0) %>%                     
+                     
   group_by(mu) %>%
   summarize(
     mu_hat          = mean(estimate),                 
@@ -168,28 +167,21 @@ est_results
 
 Averageestimateplot2 =
   est_results %>%
+                    
   pivot_longer(
     mu_hat:rejected_mu_hat,
     names_to  = "type",
-    values_to = "mu_esti"
+    values_to = "mu_hat"
   ) %>%
-  ggplot(aes(x = mu, y = mu_esti, colour = type)) +
+  ggplot(aes(x = mu, y = mu_hat, colour = type)) +
   geom_line() +
   geom_point() +
-  scale_x_continuous(breaks = seq(0, 6, by = 1)) +
-  scale_y_continuous(breaks = seq(0, 6, by = 1)) +
-  scale_color_manual(
-    values = c(
-      "mu_hat"          = "#4DBBD5", 
-      "rejected_mu_hat" = "#E60B35"
-    ),
-    name   = "type",
-    labels = c("mu_hat", "rejected_mu_hat")
-  ) +
+  scale_x_continuous(breaks =0:6, limits = c(0, 6)) +   
+  scale_y_continuous(breaks = 0:6, limits = c(0, 6)) +
   labs(
-    title = "Average estimate vs True Mean",
-    x = "True Mean",
-    y = "Average estimate"
+    title = "two versions of mu_hat",
+    x = "True mu",
+    y = "mu_hat"
   ) +
   theme_minimal() +
   theme(legend.position = "bottom")
@@ -199,12 +191,10 @@ Averageestimateplot2
 
 ```
 
----
-The overall sample mean of μ̂ across all tests is approximately equal to the true value μ, because μ̂ is an unbiased estimator. Between the two summaries we consider, this unconditional sample mean should therefore be the most accurate prediction of μ.  In contrast, when we take the sample average of μ̂ only over tests for which the null hypothesis is rejected, 
+Overall sample mean of μ̂ across all tests is approximately equal to the true value μ, because μ̂ is an unbiased estimator. Between the two summaries we consider, this unconditional sample mean should therefore be the most accurate prediction of μ.  In contrast, when we take the sample average of μ̂ only over tests for which the null hypothesis is rejected, 
 this conditional mean tends to be larger than the true μ, since small estimates are unlikely to lead to rejection and are effectively excluded.  As the true value μ increases, the power of the test becomes larger, so it is harder to accept the null hypothesis and fewer small μ̂ values are filtered out.  As a result, the sample average of μ̂ given rejection moves closer to the true μ, 
 which matches the behavior shown in the plot.  
 
----
 
 # Problem 3
 
